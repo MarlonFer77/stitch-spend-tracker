@@ -1,0 +1,107 @@
+<div class="register-container">
+  <div class="register-form-wrapper">
+    <header class="register-header">
+      <img src="assets/stitch-feliz.png" alt="Stitch Mascot" class="register-mascot"> <h2>Crie sua Conta</h2>
+      <p>Junte-se ao Stitch para organizar seus gastos!</p>
+    </header>
+
+    <form #registerFormInstance="ngForm" (ngSubmit)="onRegister()">
+      <mat-form-field appearance="outline" class="full-width-field">
+        <mat-label>Nome de Exibição (Opcional)</mat-label>
+        <input
+          matInput
+          type="text"
+          id="displayName"
+          name="displayName"
+          [(ngModel)]="displayName"
+          placeholder="Como devemos te chamar?"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width-field">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="email"
+          required
+          email placeholder="seuemail@exemplo.com"
+          #emailModel="ngModel"
+        />
+        <mat-error *ngIf="emailModel.invalid && emailModel.touched && emailModel.errors?.['required']">
+          Email é obrigatório.
+        </mat-error>
+        <mat-error *ngIf="emailModel.invalid && emailModel.touched && emailModel.errors?.['email']">
+          Por favor, insira um email válido.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width-field">
+        <mat-label>Senha</mat-label>
+        <input
+          matInput
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+          minlength="6" placeholder="Mínimo 6 caracteres"
+          #passwordModel="ngModel"
+        />
+        <mat-error *ngIf="passwordModel.invalid && passwordModel.touched && passwordModel.errors?.['required']">
+          Senha é obrigatória.
+        </mat-error>
+        <mat-error *ngIf="passwordModel.invalid && passwordModel.touched && passwordModel.errors?.['minlength']">
+          A senha deve ter no mínimo 6 caracteres.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width-field">
+        <mat-label>Confirmar Senha</mat-label>
+        <input
+          matInput
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          [(ngModel)]="confirmPassword"
+          required
+          placeholder="Repita a senha"
+          #confirmPasswordModel="ngModel"
+        />
+        <mat-error *ngIf="confirmPasswordModel.invalid && confirmPasswordModel.touched && confirmPasswordModel.errors?.['required']">
+          Confirmação de senha é obrigatória.
+        </mat-error>
+        <mat-error *ngIf="password !== confirmPassword && confirmPasswordModel.touched">
+          As senhas não coincidem.
+        </mat-error>
+      </mat-form-field>
+
+      <div class="register-actions">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="register-button"
+          [disabled]="registerFormInstance.invalid || isLoading || password !== confirmPassword">
+          <ng-container *ngIf="!isLoading; else loadingSpinner">
+            Registrar
+          </ng-container>
+          <ng-template #loadingSpinner>
+            <mat-spinner [diameter]="24" color="accent" class="button-spinner"></mat-spinner>
+            <span>Registrando...</span>
+          </ng-template>
+        </button>
+      </div>
+
+      <div *ngIf="errorMessage && !isLoading" class="error-message server-error-message">
+        {{ errorMessage }}
+      </div>
+
+      <p class="login-link">
+        Já tem uma conta? <a routerLink="/login">Faça login aqui!</a>
+      </p>
+    </form>
+  </div>
+</div>

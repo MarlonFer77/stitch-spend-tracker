@@ -1,0 +1,12 @@
+<div class="dialog-container">
+  <h2 mat-dialog-title class="dialog-title">
+    <mat-icon class="title-icon">insights</mat-icon> Detalhes da Categoria: {{ data.categoryName }}
+  </h2>
+  <mat-dialog-content class="dialog-content">
+    <p>Você selecionou a categoria <strong>{{ data.categoryName }}</strong>.</p>
+    <p>Total gasto nesta categoria: <strong>{{ data.categoryValue | currency:'BRL':'symbol':'1.2-2' }}</strong></p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end" class="dialog-actions">
+    <button mat-raised-button color="primary" (click)="onOkClick()" cdkFocusInitial>OK</button>
+  </mat-dialog-actions>
+</div>

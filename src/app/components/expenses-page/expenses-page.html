@@ -1,0 +1,164 @@
+<div class="container">
+  <section class="financial-summary-section section-card">
+    <h2>📊 Resumo Financeiro</h2>
+    <div class="summary-items">
+      <div class="summary-item income">
+        <span class="label">Total de Receitas:</span>
+        <span class="value">{{ totalIncome() | currency:'BRL':'symbol':'1.2-2' }}</span>
+      </div>
+      <div class="summary-item expenses">
+        <span class="label">Total de Despesas:</span>
+        <span class="value">{{ totalExpenses() | currency:'BRL':'symbol':'1.2-2' }}</span>
+      </div>
+      <div class="summary-item balance" [ngClass]="{
+        'positive-balance': currentBalance() > 0,
+        'negative-balance': currentBalance() < 0
+      }">
+        <span class="label">✨ Saldo Atual:</span>
+        <span class="value">{{ currentBalance() | currency:'BRL':'symbol':'1.2-2' }}</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="add-income-section section-card">
+    <h2>📈 Adicionar Receita / Ganhos</h2>
+    <form #incomeForm="ngForm" (ngSubmit)="addIncome()">
+      <div class="form-content-wrapper">
+        <mat-form-field appearance="outline" class="full-width-field">
+          <mat-label>Descrição da Receita</mat-label>
+          <input matInput type="text" name="incomeDescription" [(ngModel)]="newIncomeDescription"
+            placeholder="Ex: Salário, Venda de item" required #incomeDescriptionModel="ngModel" />
+          <mat-error
+            *ngIf="incomeDescriptionModel.invalid && incomeDescriptionModel.touched && incomeDescriptionModel.errors?.['required']">
+            Descrição da receita é obrigatória.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width-field">
+          <mat-label>Valor da Receita (R$)</mat-label>
+          <input matInput type="number" name="incomeAmount" [(ngModel)]="newIncomeAmount" placeholder="Ex: 3000.00"
+            min="0.01" step="0.01" required #incomeAmountModel="ngModel" />
+          <mat-error
+            *ngIf="incomeAmountModel.invalid && incomeAmountModel.touched && incomeAmountModel.errors?.['required']">
+            Valor da receita é obrigatório.
+          </mat-error>
+          <mat-error *ngIf="incomeAmountModel.errors?.['min'] || (newIncomeAmount !== null && newIncomeAmount <= 0)">
+            O valor deve ser positivo.
+          </mat-error>
+        </mat-form-field>
+
+        <div class="form-actions">
+          <button mat-raised-button color="accent" type="submit" class="add-income-button"
+            [disabled]="incomeForm.invalid || isLoadingAddIncome">
+            <ng-container *ngIf="!isLoadingAddIncome; else addingIncomeSpinner">
+              Adicionar Receita
+            </ng-container>
+            <ng-template #addingIncomeSpinner>
+              <mat-spinner [diameter]="24" [color]="'primary'" class="button-spinner"></mat-spinner>
+              <span>Adicionando...</span>
+            </ng-template>
+          </button>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <section class="add-expense-section section-card">
+    <h2>💰 Nova Despesa</h2>
+    <form #expenseForm="ngForm" (ngSubmit)="addExpense()">
+      <div class="form-content-wrapper">
+        <mat-form-field appearance="outline" class="full-width-field">
+          <mat-label>Descrição</mat-label>
+          <input matInput type="text" name="description" [(ngModel)]="newExpenseDescription"
+            placeholder="Ex: Compras no mercado" required #descriptionModel="ngModel" />
+          <mat-error
+            *ngIf="descriptionModel.invalid && descriptionModel.touched && descriptionModel.errors?.['required']">Descrição
+            é obrigatória.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width-field">
+          <mat-label>Valor (R$)</mat-label>
+          <input matInput type="number" name="amount" [(ngModel)]="newExpenseAmount" placeholder="Ex: 50.75" min="0.01"
+            step="0.01" required #amountModel="ngModel" />
+          <mat-error *ngIf="amountModel.invalid && amountModel.touched && amountModel.errors?.['required']">Valor é
+            obrigatório.</mat-error>
+          <mat-error *ngIf="amountModel.errors?.['min'] || (newExpenseAmount !== null && newExpenseAmount <= 0)">O valor
+            deve ser positivo.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width-field">
+          <mat-label>Categoria</mat-label>
+          <mat-select name="category" [(ngModel)]="newExpenseCategory" required #categoryModel="ngModel">
+            <mat-option *ngFor="let category of availableCategories" [value]="category">{{ category }}</mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="categoryModel.invalid && categoryModel.touched && categoryModel.errors?.['required']">Categoria é
+            obrigatória.</mat-error>
+        </mat-form-field>
+        <div class="form-actions">
+          <button mat-raised-button color="primary" type="submit" class="add-expense-button"
+            [disabled]="expenseForm.invalid || isLoadingAddExpense">
+            <ng-container *ngIf="!isLoadingAddExpense; else addingSpinner">Adicionar Despesa</ng-container>
+            <ng-template #addingSpinner><mat-spinner [diameter]="24" color="accent"
+                class="button-spinner"></mat-spinner><span>Adicionando...</span></ng-template>
+          </button>
+        </div>
+      </div>
+    </form>
+    <div *ngIf="feedbackMessage" class="feedback-message" [class.success]="!feedbackMessage.includes('⚠️')"
+      [class.error]="feedbackMessage.includes('⚠️')">
+      {{ feedbackMessage }}
+    </div>
+  </section>
+
+  <section class="expenses-list-section section-card">
+    <h2>📋 Despesas Registradas</h2>
+    <div class="clear-all-container" *ngIf="dataSource && dataSource.data.length > 0">
+      <button mat-stroked-button (click)="clearAllExpenses()" class="clear-all-button">Limpar Todas as Despesas
+        🗑️</button>
+    </div>
+    <div *ngIf="!(dataSource && dataSource.data.length > 0) && !expensesSignal().length" class="no-expenses">Nenhuma
+      despesa registrada ainda.</div>
+    <div class="mat-table-container" *ngIf="dataSource && dataSource.data.length > 0">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2 expenses-material-table">
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Data </th>
+          <td mat-cell *matCellDef="let expense"> {{expense.date | date:'dd/MM/yyyy HH:mm'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Categoria </th>
+          <td mat-cell *matCellDef="let expense"> {{expense.category || 'N/A'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Descrição </th>
+          <td mat-cell *matCellDef="let expense"> {{expense.description}} </td>
+        </ng-container>
+        <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor (R$) </th>
+          <td mat-cell *matCellDef="let expense" class="amount-cell"> {{expense.amount |
+            currency:'BRL':'symbol':'1.2-2'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="actions-header-cell"> Ações </th>
+          <td mat-cell *matCellDef="let expense" class="actions-cell">
+            <button mat-icon-button color="primary" (click)="openEditDialog(expense)" matTooltip="Editar Despesa">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="openDeleteConfirmDialog(expense)" matTooltip="Excluir Despesa">
+              <mat-icon>delete_sweep</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="expense-row"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[3, 5, 10]" showFirstLastButtons
+        aria-label="Selecione a página de despesas"></mat-paginator>
+    </div>
+    <div class="total-expenses" *ngIf="dataSource && dataSource.data.length > 0"><strong>Total: {{ totalExpenses() |
+        currency:'BRL':'symbol':'1.2-2' }}</strong></div>
+  </section>
+
+  <section class="stitch-section-container section-card">
+    <app-stitch [totalExpensesInput]="totalExpenses()"></app-stitch>
+  </section>
+</div>

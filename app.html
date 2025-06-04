@@ -1,0 +1,31 @@
+<mat-toolbar class="main-toolbar">
+  <div class="toolbar-segment start">
+    <img src="assets/stitch-feliz.png" alt="Stitch Logo" class="toolbar-logo" *ngIf="isAuthenticated()"> <ng-container *ngIf="isAuthenticated()">
+      <a mat-button routerLink="/despesas" routerLinkActive="active-mat-button" [routerLinkActiveOptions]="{exact: true}">
+        <mat-icon>account_balance_wallet</mat-icon> Minhas Despesas
+      </a>
+      <a mat-button routerLink="/graficos" routerLinkActive="active-mat-button">
+        <mat-icon>bar_chart</mat-icon> Gráficos
+      </a>
+    </ng-container>
+  </div>
+
+  <span class="toolbar-spacer"></span> <div class="toolbar-segment end" *ngIf="isAuthenticated()">
+    <span class="user-greeting">Olá, {{ currentUserName() || 'Usuário' }}!</span>
+    <button mat-icon-button (click)="logout()" matTooltip="Sair do sistema" aria-label="Sair do sistema">
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
+  </div>
+
+  <div class="toolbar-segment center" *ngIf="!isAuthenticated()">
+    <span>Stitch Expense Tracker</span>
+  </div>
+</mat-toolbar>
+
+<main class="content">
+  <router-outlet></router-outlet>
+</main>
+
+<footer>
+  <p>&copy; {{ currentYear }} Stitch Expense Tracker. Todos os direitos reservados ao Stitch e seus amigos.</p>
+</footer>

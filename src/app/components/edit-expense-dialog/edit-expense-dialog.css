@@ -1,0 +1,94 @@
+.dialog-title {
+  color: #FFFF00 !important;
+  border-bottom: 1px solid #FFD700;
+  padding-bottom: 10px;
+  margin-bottom: 15px; /* Levemente reduzido para compensar o padding do content ou margin do form-field */
+  font-size: 1.4em;
+  display: flex; /* Para alinhar ícone e texto, se você adicionar um ícone */
+  align-items: center;
+}
+
+.dialog-content {
+  color: #FFFFE0 !important;
+  padding-top: 5px; /* Um pequeno padding no topo do conteúdo geral */
+}
+
+/* Garante espaço acima do primeiro campo do formulário para o label flutuante */
+.dialog-content form > mat-form-field:first-child {
+  margin-top: 8px !important; /* Aumenta a margem para dar espaço ao label */
+}
+
+.full-width-field { /* Aplicado aos MatFormFields dentro do diálogo */
+  width: 100%;
+  margin-bottom: 18px; /* Espaçamento abaixo de cada campo */
+}
+
+.dialog-actions {
+  padding-top: 15px; /* Espaçamento acima dos botões de ação */
+  margin-top: 10px; /* Margem para separar das entradas do formulário */
+}
+
+/* Estilos para MatFormField, MatInput, MatSelect (consistente com expenses-page) */
+:host ::ng-deep .mat-mdc-form-field .mdc-text-field--outlined .mdc-notched-outline__leading,
+:host ::ng-deep .mat-mdc-form-field .mdc-text-field--outlined .mdc-notched-outline__notch,
+:host ::ng-deep .mat-mdc-form-field .mdc-text-field--outlined .mdc-notched-outline__trailing {
+  border-color: #FFD700 !important;
+}
+
+:host ::ng-deep .mat-mdc-form-field:not(.mat-form-field-disabled) .mdc-floating-label {
+  color: #FFD700 !important;
+}
+
+:host ::ng-deep .mat-mdc-form-field .mdc-text-field__input,
+:host ::ng-deep .mat-mdc-select .mdc-select__selected-text { /* Para texto do MatSelect */
+  color: #FFFF00 !important;
+}
+
+:host ::ng-deep .mat-mdc-select__arrow { /* Para a seta do MatSelect */
+  color: #FFD700 !important;
+}
+
+/* Painel e Opções do MatSelect (se usado neste diálogo) */
+:host ::ng-deep .mat-mdc-select-panel {
+  background-color: #1A1A1A !important;
+}
+
+:host ::ng-deep .mat-mdc-option {
+  color: #FFFF00 !important;
+  background-color: transparent !important;
+}
+
+:host ::ng-deep .mat-mdc-option.mdc-list-item--selected:not(.mat-mdc-option-multiple):not(.mat-pseudo-checkbox-checked),
+:host ::ng-deep .mat-mdc-option:hover:not(.mdc-list-item--disabled),
+:host ::ng-deep .mat-mdc-option:focus:not(.mdc-list-item--disabled) {
+  background-color: rgba(255, 215, 0, 0.15) !important;
+}
+
+:host ::ng-deep .mat-mdc-option.mdc-list-item--selected .mdc-list-item__primary-text {
+  color: #FFFF00 !important;
+}
+
+/* Estilos de Foco para MatFormField */
+:host ::ng-deep .mat-mdc-form-field.mat-focused .mdc-text-field--outlined .mdc-notched-outline__leading,
+:host ::ng-deep .mat-mdc-form-field.mat-focused .mdc-text-field--outlined .mdc-notched-outline__notch,
+:host ::ng-deep .mat-mdc-form-field.mat-focused .mdc-text-field--outlined .mdc-notched-outline__trailing {
+  border-color: #FFFF00 !important;
+  border-width: 2px !important;
+}
+
+:host ::ng-deep .mat-mdc-form-field.mat-focused .mdc-floating-label {
+  color: #FFFF00 !important;
+}
+
+/* Estilos de Erro para MatFormField */
+:host ::ng-deep .mat-mdc-form-field.ng-invalid.ng-touched .mdc-text-field--outlined .mdc-notched-outline__leading,
+:host ::ng-deep .mat-mdc-form-field.ng-invalid.ng-touched .mdc-text-field--outlined .mdc-notched-outline__notch,
+:host ::ng-deep .mat-mdc-form-field.ng-invalid.ng-touched .mdc-text-field--outlined .mdc-notched-outline__trailing {
+  border-color: #E74C3C !important;
+}
+
+:host ::ng-deep .mat-mdc-form-field.ng-invalid.ng-touched .mdc-floating-label,
+:host ::ng-deep .mat-mdc-form-field .mat-mdc-form-field-error,
+:host ::ng-deep .mat-mdc-select.ng-invalid.ng-touched .mdc-floating-label {
+  color: #FFB6C1 !important;
+}

@@ -1,0 +1,394 @@
+:host {
+  display: block;
+  padding-bottom: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+/* --- NOVA CLASSE BASE PARA SEÇÕES --- */
+/* Esta classe agrupa propriedades comuns a múltiplas seções, reduzindo duplicação */
+.section-card {
+  margin-bottom: 30px;
+  padding: 20px 25px;
+  border: 1px solid #FFD700;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.1);
+}
+
+/* Estilos específicos para estas seções (apenas a cor de fundo varia) */
+.add-expense-section,
+.add-income-section,
+.expenses-list-section,
+.stitch-section-container {
+  background-color: #0A0A0A;
+}
+
+/* Estilo específico para a seção de resumo financeiro (cor de fundo diferente) */
+.financial-summary-section {
+  background-color: #0F0F0F;
+}
+
+h2 {
+  font-size: 1.8em;
+  color: #FFFF00;
+  margin-top: 0;
+  margin-bottom: 25px;
+  border-bottom: 2px solid #FFD700;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.financial-summary-section h2 {
+  margin-bottom: 20px;
+}
+
+.summary-items {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 15px;
+  text-align: center;
+}
+
+.summary-item {
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #1A1A1A;
+  min-width: 180px;
+  flex-basis: 200px;
+  flex-grow: 1;
+}
+
+.summary-item .label {
+  display: block;
+  font-size: 0.95em;
+  color: #AAAA00;
+  margin-bottom: 5px;
+}
+
+.summary-item .value {
+  display: block;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #FFFF00;
+}
+
+.summary-item.balance .value.positive-balance {
+  color: #90EE90;
+}
+
+.summary-item.balance .value.negative-balance {
+  color: #E74C3C;
+}
+
+.form-content-wrapper {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.full-width-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+/* --- ESTILOS DO ANGULAR MATERIAL (sem otimização complexa para não quebrar) --- */
+/* Mantidos como estavam para garantir a compatibilidade e funcionalidade */
+:host ::ng-deep .mat-mdc-form-field .mdc-text-field--outlined .mdc-notched-outline__leading,
+:host ::ng-deep .mat-mdc-form-field .mdc-text-field--outlined .mdc-notched-outline__notch,
+:host ::ng-deep .mat-mdc-form-field .mdc-text-field--outlined .mdc-notched-outline__trailing {
+  border-color: #FFD700 !important;
+}
+:host ::ng-deep .mat-mdc-form-field:not(.mat-form-field-disabled) .mdc-floating-label {
+  color: #FFD700 !important;
+}
+:host ::ng-deep .mat-mdc-form-field .mdc-text-field__input,
+:host ::ng-deep .mat-mdc-select .mdc-select__selected-text {
+  color: #FFFF00 !important;
+}
+:host ::ng-deep .mat-mdc-select__arrow {
+  color: #FFD700 !important;
+}
+:host ::ng-deep .mat-mdc-select-panel {
+  background-color: #1A1A1A !important;
+}
+:host ::ng-deep .mat-mdc-option {
+  color: #FFFF00 !important;
+  background-color: transparent !important;
+}
+:host ::ng-deep .mat-mdc-option.mdc-list-item--selected:not(.mat-mdc-option-multiple):not(.mat-pseudo-checkbox-checked),
+:host ::ng-deep .mat-mdc-option:hover:not(.mdc-list-item--disabled),
+:host ::ng-deep .mat-mdc-option:focus:not(.mdc-list-item--disabled) {
+  background-color: rgba(255, 215, 0, 0.15) !important;
+}
+:host ::ng-deep .mat-mdc-option.mdc-list-item--selected .mdc-list-item__primary-text {
+  color: #FFFF00 !important;
+}
+:host ::ng-deep .mat-mdc-form-field.mat-focused .mdc-text-field--outlined .mdc-notched-outline__leading,
+:host ::ng-deep .mat-mdc-form-field.mat-focused .mdc-text-field--outlined .mdc-notched-outline__notch,
+:host ::ng-deep .mat-mdc-form-field.mat-focused .mdc-text-field--outlined .mdc-notched-outline__trailing {
+  border-color: #FFFF00 !important;
+  border-width: 2px !important;
+}
+:host ::ng-deep .mat-mdc-form-field.mat-focused .mdc-floating-label {
+  color: #FFFF00 !important;
+}
+:host ::ng-deep .mat-mdc-form-field.ng-invalid.ng-touched .mdc-text-field--outlined .mdc-notched-outline__leading,
+:host ::ng-deep .mat-mdc-form-field.ng-invalid.ng-touched .mdc-text-field--outlined .mdc-notched-outline__notch,
+:host ::ng-deep .mat-mdc-form-field.ng-invalid.ng-touched .mdc-text-field--outlined .mdc-notched-outline__trailing {
+  border-color: #E74C3C !important;
+}
+:host ::ng-deep .mat-mdc-form-field.ng-invalid.ng-touched .mdc-floating-label,
+:host ::ng-mdc-form-field .mat-mdc-form-field-error,
+:host ::ng-deep .mat-mdc-select.ng-invalid.ng-touched .mdc-floating-label {
+  color: #FFB6C1 !important;
+}
+
+.form-actions {
+  margin-top: 20px;
+}
+
+/* --- ESTILOS DOS BOTÕES DE AÇÃO (CORRIGIDO PARA MANTER APARÊNCIA ORIGINAL) --- */
+/* Aplica os estilos comuns diretamente aos seletores de botões existentes do Material Design */
+.add-income-button.mat-mdc-raised-button,
+.add-expense-button.mat-mdc-raised-button {
+  width: 100% !important;
+  padding: 8px 0 !important;
+  font-size: 1.05em !important;
+  line-height: 26px !important;
+  box-sizing: border-box !important;
+}
+
+:host ::ng-deep .add-income-button.mat-accent.mat-mdc-raised-button:disabled {
+  background-color: #555000 !important;
+  color: #888 !important;
+}
+:host ::ng-deep .add-income-button.mat-accent.mat-mdc-raised-button:not(:disabled) {
+  background-color: #FFD700 !important;
+  color: #000000 !important;
+}
+:host ::ng-deep .add-income-button .mat-mdc-progress-spinner circle {
+  stroke: #000000 !important;
+}
+
+:host ::ng-deep .add-expense-button.mat-primary.mat-mdc-raised-button:not(:disabled) {
+  background-color: #FFD700 !important;
+  color: #000000 !important;
+}
+.add-expense-button.mat-mdc-raised-button:disabled {
+  background-color: #555000 !important;
+  color: #888 !important;
+}
+:host ::ng-deep .add-expense-button .mat-mdc-progress-spinner circle {
+  stroke: #000000 !important;
+}
+
+.add-income-button .button-spinner,
+.add-expense-button .button-spinner {
+  margin-right: 8px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.add-income-button span,
+.add-expense-button span {
+  vertical-align: middle;
+}
+
+/* --- ESTILOS DA TABELA DE DESPESAS --- */
+.mat-table-container {
+  margin-top: 20px;
+  overflow-x: auto;
+  border: 1px solid #333;
+  border-radius: 4px;
+}
+.expenses-material-table {
+  width: 100%;
+  background-color: #1A1A1A;
+}
+.mat-mdc-header-row {
+  background-color: #333333;
+}
+.mat-mdc-header-cell {
+  color: #FFD700 !important;
+  font-size: 1em;
+  font-weight: bold;
+  padding: 12px 16px !important;
+}
+:host ::ng-deep .mat-sort-header-arrow,
+:host ::ng-deep .mat-sort-header-stem {
+  color: #FFD700 !important;
+}
+.mat-mdc-row {
+  border-bottom: 1px solid #444;
+  transition: background-color 0.2s ease-in-out;
+}
+.mat-mdc-row:hover {
+  background-color: #383000 !important;
+}
+.mat-mdc-row:last-child {
+  border-bottom: none;
+}
+.mat-mdc-cell {
+  color: #FFFFE0;
+  padding: 10px 16px !important;
+  border-color: inherit;
+}
+.mat-mdc-cell.amount-cell {
+  text-align: right;
+  font-weight: bold;
+}
+
+/* --- ESTILOS DO PAGINATOR DO MATERIAL DESIGN --- */
+:host ::ng-deep .mat-mdc-paginator {
+  background-color: #111111 !important;
+  color: #FFD700 !important;
+  border-top: 1px solid #333;
+}
+:host ::ng-deep .mat-mdc-paginator .mat-mdc-select-value,
+:host ::ng-deep .mat-mdc-paginator .mat-mdc-select-arrow,
+:host ::ng-deep .mat-mdc-paginator .mat-mdc-icon-button {
+  color: #FFD700 !important;
+}
+:host ::ng-deep .mat-mdc-paginator .mat-mdc-icon-button:disabled {
+  color: rgba(255, 215, 0, 0.3) !important;
+}
+
+/* --- OUTROS ESTILOS DA PÁGINA --- */
+.no-expenses {
+  text-align: center;
+  padding: 20px;
+  font-style: italic;
+  color: #AAAA00;
+  background-color: #1A1A1A;
+  border-radius: 5px;
+}
+.total-expenses {
+  text-align: right;
+  font-size: 1.3em;
+  font-weight: bold;
+  margin-top: 0px;
+  padding: 12px 16px;
+  background-color: #0A0A0A;
+  border-top: 2px solid #FFD700;
+}
+
+.clear-all-container {
+  margin-top: 25px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.clear-all-button {
+  background-color: transparent !important;
+  border: 2px solid #FFD700 !important;
+  color: #FFD700 !important;
+  padding: 8px 20px !important;
+  min-width: 240px;
+  border-radius: 4px !important;
+  font-weight: bold !important;
+  letter-spacing: 0.5px !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: normal;
+  box-sizing: border-box;
+}
+.clear-all-button:hover:not(:disabled) {
+  background-color: rgba(255, 215, 0, 0.15) !important;
+  color: #FFFF00 !important;
+  border-color: #FFFF00 !important;
+}
+.clear-all-button:disabled {
+  color: rgba(255, 215, 0, 0.4) !important;
+  border-color: rgba(255, 215, 0, 0.4) !important;
+  background-color: transparent !important;
+  cursor: not-allowed !important;
+}
+
+.feedback-message {
+  padding: 12px;
+  margin-top: 20px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  border-width: 1px;
+  border-style: solid;
+}
+.feedback-message.success {
+  background-color: #003300; color: #90EE90; border-color: #90EE90;
+}
+.feedback-message.error {
+  background-color: #330000; color: #FFB6C1; border-color: #FFB6C1;
+}
+
+/* --- MEDIA QUERIES PARA RESPONSIVIDADE --- */
+@media (max-width: 600px) {
+  .container {
+    padding: 0 10px;
+  }
+  /* Usa a classe base para seções nas media queries */
+  .section-card {
+    padding: 15px;
+  }
+  h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+  .form-content-wrapper {
+    max-width: 100%;
+  }
+
+  .mat-mdc-header-cell,
+  .mat-mdc-cell {
+    padding: 8px 10px !important;
+    font-size: 0.9em;
+  }
+  .mat-mdc-paginator {
+    font-size: 0.85em;
+  }
+  :host ::ng-deep .mat-mdc-paginator .mat-mdc-paginator-page-size-label,
+  :host ::ng-deep .mat-mdc-paginator .mat-mdc-paginator-range-label {
+    margin: 0 4px !important;
+  }
+
+  /* Ajuste para os botões de ação na media query (CORRIGIDO) */
+  .add-expense-button.mat-mdc-raised-button,
+  .add-income-button.mat-mdc-raised-button {
+    min-width: auto;
+    width: 100%;
+    padding: 10px 0 !important;
+    margin-bottom: 10px;
+  }
+  /* Mantido para o clear-all-button, pois ele não usava a classe base de botões */
+  .clear-all-button {
+    min-width: auto;
+    width: 100%;
+    padding: 10px 0 !important;
+    margin-bottom: 10px;
+  }
+
+  .form-actions:last-of-type,
+  .clear-all-container {
+    margin-bottom: 0;
+  }
+  .clear-all-container {
+      margin-top: 15px;
+  }
+
+  .mat-mdc-header-cell.actions-header-cell,
+  .mat-mdc-cell.actions-cell {
+    flex: 0 0 120px !important;
+    justify-content: center;
+    text-align: right !important;
+    padding-right: 8px !important;
+  }
+
+  .mat-mdc-cell.actions-cell button[mat-icon-button] {
+    margin-left: 4px;
+  }
+}

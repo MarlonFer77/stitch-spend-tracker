@@ -1,0 +1,55 @@
+/* Estilos para o tema preto/amarelo, mas o painel do diálogo em si
+   ainda pode precisar de theming global do Material ou ::ng-deep no host se necessário */
+
+/* Se o painel do diálogo estiver branco, você pode precisar de algo como:
+:host ::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  background-color: #1E1E1E !important;
+  border: 1px solid #FFD700;
+  border-radius: 8px !important;
+}
+*/
+
+.dialog-title {
+  color: #FFFF00 !important; /* Amarelo para o título */
+  display: flex;
+  align-items: center;
+  font-size: 1.4em;
+}
+
+.title-icon {
+  /* color: #E74C3C; /* Cor do ícone de aviso (vermelho) */
+  margin-right: 10px;
+}
+
+.dialog-content {
+  color: #FFFFE0 !important; /* Amarelo claro para o conteúdo */
+  font-size: 1.1em;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.dialog-actions {
+  padding-top: 10px;
+}
+
+/* Botão Cancelar (stroked, para ser menos proeminente) */
+.dialog-actions button[mat-stroked-button] {
+  color: #FFD700 !important;
+  border-color: #FFD700 !important;
+  margin-right: 8px;
+}
+.dialog-actions button[mat-stroked-button]:hover {
+  background-color: rgba(255, 215, 0, 0.1) !important;
+}
+
+/* Botão Confirmar (Excluir - flat com cor warn) */
+/* A cor 'warn' do Material geralmente é vermelha. Se quiser amarelo: */
+/*
+.dialog-actions button[mat-flat-button][color="warn"] {
+  background-color: #FFD700 !important;
+  color: #000000 !important;
+}
+.dialog-actions button[mat-flat-button][color="warn"]:hover {
+  background-color: #FFFF00 !important;
+}
+*/

@@ -1,0 +1,91 @@
+/* src/app/pages/charts-page/charts-page.css */
+:host {
+  display: block;
+  padding: 20px 0;
+  background-color: #000000;
+}
+
+.page-container {
+  max-width: 700px; /* Diminuí um pouco a largura máxima do card na página */
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.chart-card {
+  background-color: #0A0A0A !important;
+  color: #FFFF00 !important;
+  border: 1px solid #FFD700;
+  border-radius: 8px !important;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.1) !important;
+  padding: 15px !important; /* Reduzi o padding interno do card */
+}
+
+.chart-card-title {
+  text-align: center;
+  font-size: 1.6em; /* Diminuí um pouco o tamanho do título */
+  color: #FFFF00 !important;
+  margin-top: 0 !important; /* Removido margin-top se houver padding no card */
+  margin-bottom: 15px !important; /* REDUZIDO o espaçamento abaixo do título */
+  padding-bottom: 8px !important;  /* REDUZIDO o padding abaixo do título */
+  border-bottom: 2px solid #FFD700 !important;
+}
+
+mat-card-content {
+  padding: 5px 0 5px 0 !important; /* Padding mínimo para o conteúdo do card, ou ajuste conforme necessário */
+}
+
+.chart-wrapper {
+  display: block;
+  width: 100%; /* Ocupa a largura do mat-card-content */
+  /* height: 300px; /* Experimente um valor menor ou remova para altura dinâmica */
+  max-height: 350px; /* REDUZIDO - Altura máxima para o container do gráfico */
+  max-width: 450px; /* REDUZIDO - Largura máxima para o container do gráfico, para centralizar melhor */
+  margin: 0 auto;   /* Centraliza o chart-wrapper se ele for mais estreito que o card-content */
+}
+
+/* Mensagem de "sem dados" */
+.no-data-container {
+  text-align: center;
+  padding: 20px 10px; /* Padding ajustado */
+}
+
+.no-data-message {
+  font-size: 1.1em; /* Ajustado */
+  color: #AAAA00;
+  margin-bottom: 10px;
+}
+
+.no-data-message a {
+  color: #FFD700;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.no-data-message a:hover {
+  color: #FFFF00;
+}
+
+/* Responsividade básica para o gráfico/card */
+@media (max-width: 767px) { /* Ajustado breakpoint para tablet/mobile */
+  .page-container {
+    max-width: 100%; /* Ocupa toda a largura menos o padding */
+    padding: 0 10px;
+  }
+  .chart-card {
+    padding: 10px !important;
+  }
+  .chart-card-title {
+    font-size: 1.4em; /* Título menor em telas pequenas */
+    margin-bottom: 10px !important;
+    padding-bottom: 5px !important;
+  }
+  .chart-wrapper {
+    max-height: 300px; /* Altura máxima ainda menor para mobile */
+    max-width: 100%; /* Gráfico ocupa toda a largura do card content */
+    /* Se removeu a altura fixa, pode não precisar disso: */
+    /* height: 280px; */
+  }
+  .no-data-message {
+    font-size: 1em;
+  }
+}

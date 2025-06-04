@@ -1,0 +1,26 @@
+<div class="page-container">
+  <mat-card class="chart-card">
+    <mat-card-title class="chart-card-title">
+      📊 Distribuição de Gastos por Categoria
+    </mat-card-title>
+    <mat-card-content>
+      <div *ngIf="expensesGroupedByCategory().length > 0; else noData" class="chart-wrapper">
+        <canvas baseChart
+          [data]="pieChartData()"
+          [type]="pieChartType"
+          [options]="pieChartOptions"
+          [legend]="pieChartLegend"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)">
+        </canvas>
+      </div>
+
+      <ng-template #noData>
+        <div class="no-data-container">
+          <p class="no-data-message">Não há dados de despesas com categorias para exibir o gráfico. 🙁</p>
+          <p class="no-data-message">Adicione algumas despesas na <a routerLink="/despesas">página de despesas</a>!</p>
+        </div>
+      </ng-template>
+    </mat-card-content>
+  </mat-card>
+</div>

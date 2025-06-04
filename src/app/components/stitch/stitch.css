@@ -1,0 +1,37 @@
+
+.stitch-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px; 
+  padding: 20px;
+  border: 2px dashed #FFD700; 
+  border-radius: 8px;
+  background-color: #050505; 
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.stitch-container:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); 
+}
+
+.stitch-container img {
+  width: 150px; 
+  height: auto;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 150, 0.7)); 
+  transition: transform 0.3s ease;
+}
+
+.stitch-container img:hover {
+  transform: rotate(5deg) scale(1.1); 
+}
+
+.stitch-status {
+  font-size: 1.1em;
+  color: #FFFF00; 
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 0 0 3px #FFD700;
+}

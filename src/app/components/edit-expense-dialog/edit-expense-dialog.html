@@ -1,0 +1,39 @@
+<div class="edit-dialog-container">
+  <h2 mat-dialog-title class="dialog-title">Editar Despesa</h2>
+  <mat-dialog-content class="dialog-content">
+    <form #editExpenseForm="ngForm">
+      <mat-form-field appearance="outline" class="full-width-field">
+        <mat-label>Descrição</mat-label>
+        <input matInput name="description" [(ngModel)]="editableExpense.description" required>
+        <mat-error *ngIf="editExpenseForm.controls['description']?.invalid && editExpenseForm.controls['description']?.touched">
+          Descrição é obrigatória.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width-field">
+        <mat-label>Valor (R$)</mat-label>
+        <input matInput type="number" name="amount" [(ngModel)]="editableExpense.amount" required min="0.01" step="0.01">
+         <mat-error *ngIf="editExpenseForm.controls['amount']?.invalid && editExpenseForm.controls['amount']?.touched">
+          Valor é obrigatório e deve ser positivo.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width-field">
+        <mat-label>Categoria</mat-label>
+        <mat-select name="category" [(ngModel)]="editableExpense.category" required>
+          <mat-option *ngFor="let category of availableCategories" [value]="category">
+            {{ category }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="editExpenseForm.controls['category']?.invalid && editExpenseForm.controls['category']?.touched">
+          Categoria é obrigatória.
+        </mat-error>
+      </mat-form-field>
+
+      </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end" class="dialog-actions">
+    <button mat-stroked-button (click)="onCancel()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="onSave()" [disabled]="editExpenseForm.invalid">Salvar</button>
+  </mat-dialog-actions>
+</div>

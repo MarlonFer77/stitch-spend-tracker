@@ -1,0 +1,141 @@
+/* src/app/app.css ou app.component.css */
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #000000;
+  color: #FFFF00; /* Cor de texto padrão para o app, pode ser herdada */
+}
+
+.main-toolbar { /* Estilizando a mat-toolbar */
+  background-color: #111111 !important; /* Fundo escuro para a toolbar */
+  color: #FFD700 !important; /* Cor padrão do texto/ícones na toolbar */
+  border-bottom: 2px solid #FFD700;
+  box-shadow: 0 2px 10px rgba(255, 215, 0, 0.1);
+  padding: 0 16px; /* Padding horizontal padrão */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky; /* Opcional: faz a toolbar ficar fixa no topo */
+  top: 0;
+  z-index: 1000; /* Opcional: garante que fique acima de outros conteúdos */
+}
+
+.toolbar-segment {
+  display: flex;
+  align-items: center;
+}
+
+.toolbar-logo {
+  height: 40px; /* Ajuste o tamanho do logo */
+  width: auto;
+  margin-right: 20px;
+  vertical-align: middle; /* Ajuda no alinhamento se o texto estiver ao lado */
+}
+
+.nav-links a[mat-button] {
+  color: #FFD700;
+  font-weight: bold;
+  margin: 0 5px; /* Espaçamento entre os botões de navegação */
+  line-height: normal; /* Para melhor alinhamento vertical do texto e ícone */
+}
+
+.nav-links a[mat-button] mat-icon {
+  margin-right: 6px; /* Espaço entre ícone e texto */
+  vertical-align: middle;
+}
+
+.nav-links a[mat-button]:hover,
+.nav-links a[mat-button].active-mat-button {
+  background-color: rgba(255, 215, 0, 0.1) !important; /* Fundo dourado translúcido */
+  color: #FFFF00 !important; /* Amarelo mais vibrante */
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto; /* Ocupa o espaço, empurrando os itens */
+}
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espaço entre saudação e botão de logout */
+}
+
+.user-greeting {
+  color: #FFD700;
+  font-weight: normal; /* Pode ser bold se preferir */
+  font-size: 0.9em;
+  margin-right: 8px;
+}
+
+.user-actions button[mat-icon-button] {
+  color: #FFD700; /* Cor do ícone de logout */
+}
+
+.user-actions button[mat-icon-button]:hover {
+  color: #FFFF00; /* Cor do ícone no hover */
+  background-color: rgba(255, 255, 255, 0.08); /* Leve fundo no hover */
+}
+
+.toolbar-segment.center span { /* Estilo para o título quando não autenticado */
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+
+.content {
+  flex-grow: 1;
+  /* O padding pode ser removido se os componentes de página já tiverem seu próprio padding de container */
+  /* padding: 20px; */
+}
+
+footer {
+  background-color: #111;
+  color: #AAAA00;
+  text-align: center;
+  padding: 15px 20px;
+  border-top: 1px solid #FFD700;
+  font-size: 0.9em;
+  flex-shrink: 0; /* Impede que o rodapé encolha */
+}
+
+/* Media Query para responsividade da Toolbar (Exemplo simples) */
+@media (max-width: 767px) {
+  .main-toolbar {
+    padding: 0 8px; /* Menos padding lateral */
+    flex-wrap: wrap; /* Permite que os segmentos quebrem linha se necessário */
+    height: auto; /* Altura automática */
+  }
+
+  .toolbar-logo {
+    height: 30px;
+    margin-right: 10px;
+  }
+
+  .nav-links a[mat-button] {
+    font-size: 0.85em; /* Fonte um pouco menor nos links */
+    padding: 0 8px !important; /* Menos padding nos botões */
+    margin: 0 2px;
+  }
+  .nav-links a[mat-button] mat-icon {
+    font-size: 20px; /* Ícone um pouco menor */
+    height: 20px;
+    width: 20px;
+    margin-right: 4px;
+  }
+
+  .user-greeting {
+    font-size: 0.8em; /* Saudação menor */
+ 
+  }
+
+  .toolbar-segment.start {
+    order: 1; width: 100%; justify-content: center; margin-bottom: 5px; 
+  }
+  .toolbar-segment.end {
+   order: 2; width: 100%; justify-content: center; 
+  }
+  .toolbar-spacer {
+    display: none; 
+  }
+}
